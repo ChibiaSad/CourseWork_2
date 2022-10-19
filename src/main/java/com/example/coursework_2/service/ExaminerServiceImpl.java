@@ -28,6 +28,7 @@ public class ExaminerServiceImpl implements ExaminerService{
 
     @Override
     public Collection<Question> getQuestions(int amount) {
+        //в последней сложности это условие не нужно, так как вопросы math бесконечны
         if(amount > javaQuestionService.getAll().size() + mathQuestionService.getAll().size()) {
             throw new NotEnoughQuestionsException();
         }
