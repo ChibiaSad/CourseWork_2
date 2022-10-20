@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class MathQuestionService implements QuestionService{
+public class MathQuestionService implements QuestionService {
     private final QuestionRepository questionRepository;
+    private final Random random = new Random();
 
     public MathQuestionService(@Qualifier("mathQuestionRepository") QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
@@ -43,9 +44,10 @@ public class MathQuestionService implements QuestionService{
     public Question getRandomQuestion() {
         List<Question> questionList = new ArrayList<>(questionRepository.getAll());
 
-        if(questionRepository.getAll().size() == 0) throw new NotEnoughQuestionsException();
+        if (questionRepository.getAll().size() == 0) {
+            throw new NotEnoughQuestionsException();
+        }
 
-        Random random = new Random();
         return questionList.get(random.nextInt(questionList.size()));
 
         /*

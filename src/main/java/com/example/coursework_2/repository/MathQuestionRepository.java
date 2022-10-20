@@ -31,7 +31,9 @@ public class MathQuestionRepository implements QuestionRepository{
 
     @Override
     public Question add(Question question) {
-        if(questionSet.contains(question)) throw new QuestionAlreadyExist();
+        if(questionSet.contains(question)) {
+            throw new QuestionAlreadyExist();
+        }
 
         questionSet.add(question);
         return question;
@@ -39,7 +41,9 @@ public class MathQuestionRepository implements QuestionRepository{
 
     @Override
     public Question remove(Question question) {
-        if(!questionSet.contains(question)) throw new QuestionIsNotExist();
+        if(!questionSet.contains(question)) {
+            throw new QuestionIsNotExist();
+        }
 
         questionSet.remove(question);
         return question;
@@ -47,6 +51,6 @@ public class MathQuestionRepository implements QuestionRepository{
 
     @Override
     public Collection<Question> getAll() {
-        return questionSet;
+        return Set.copyOf(questionSet);
     }
 }

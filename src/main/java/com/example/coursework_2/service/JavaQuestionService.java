@@ -11,6 +11,7 @@ import java.util.*;
 @Service
 public class JavaQuestionService implements QuestionService{
     private final QuestionRepository questionRepository;
+    private final Random random = new Random();
 
     public JavaQuestionService(@Qualifier("javaQuestionRepository") QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
@@ -40,9 +41,10 @@ public class JavaQuestionService implements QuestionService{
     public Question getRandomQuestion() {
         List<Question> questionList = new ArrayList<>(getAll());
 
-        if(questionList.size() == 0) throw new NotEnoughQuestionsException();
+        if(questionList.size() == 0) {
+            throw new NotEnoughQuestionsException();
+        }
 
-        Random random = new Random();
         return questionList.get(random.nextInt(questionList.size()));
     }
 }

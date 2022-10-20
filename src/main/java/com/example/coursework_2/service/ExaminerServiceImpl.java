@@ -10,6 +10,7 @@ import java.util.*;
 public class ExaminerServiceImpl implements ExaminerService{
     private final QuestionService mathQuestionService;
     private final QuestionService javaQuestionService;
+    private final Random random = new Random();
 
     public ExaminerServiceImpl(QuestionService mathQuestionService, QuestionService javaQuestionService) {
         this.mathQuestionService = mathQuestionService;
@@ -34,23 +35,17 @@ public class ExaminerServiceImpl implements ExaminerService{
         }
 
         Set<Question> questionSet = new HashSet<>();
-        Random random = new Random();
 
         while(questionSet.size() < amount){
-            if(random.nextInt(2) == 0){
+            if(random.nextBoolean()){
                 questionSet.add(javaQuestionService.getRandomQuestion());
             }else{
                 questionSet.add(mathQuestionService.getRandomQuestion());
             }
 
             /*
-            if(random.nextInt(2) == 0){
-                questionSet.add(services.get(0).getRandomQuestion());
-            }else{
-                questionSet.add(services.get(1).getRandomQuestion());
-            }
+            questionSet.add(services.get(random.nextInt(2)).getRandomQuestion());
             */
-
         }
         return questionSet;
     }
